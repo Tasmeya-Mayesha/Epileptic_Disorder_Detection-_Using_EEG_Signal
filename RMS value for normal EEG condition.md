@@ -42,4 +42,38 @@ title('Delta Wave')
 subplot(5,1,5)
 plot(thetha)
 title('Thetha Wave')
+%rms value for beta wave
+window_size = 40; 
+overlap = 10; 
+num_windows = floor((length(beta) - window_size) / overlap) + 1;
+rms_values = zeros(1, num_windows);
+for i = 1:num_windows
+    start_idx = (i - 1) * overlap + 1;
+    end_idx = start_idx + window_size - 1;
+ window_data =beta(start_idx:end_idx);
+rms_values(i) = rms(window_data);
+end
+figure;
+plot(rms_values);
+title('RMS Values with Sliding Window(epileptic)');
+xlabel('Window Number');
+ylabel('RMS Value');
+fprintf('RMS Value: %f\n', rms_values)
+ 
+%rms value for gamma wave
+num_windows = floor((length(gamma) - window_size) / overlap) + 1;
+rms_values = zeros(1, num_windows);
+for i = 1:num_windows
+   start_idx = (i - 1) * overlap + 1;
+    end_idx = start_idx + window_size - 1;
+ window_data =gamma(start_idx:end_idx);
+rms_values(i) = rms(window_data);
+end
+figure;
+plot(rms_values);
+title('RMS Values with Sliding Window(epileptic)');
+xlabel('Window Number');
+ylabel('RMS Value');
+fprintf('RMS Value: %f\n', rms_values)
+
 
